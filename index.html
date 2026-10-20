@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>张泽禹 · 企业文化运营作品集</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>Z</text></svg>">
+<style>
+  @import url('https://miaoda.feishu.cn/fonts/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&family=Noto+Serif+SC:wght@600;700;900&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --bg: #0e0e10;
+    --bg-card: #1a1a1e;
+    --text: #e8e6e1;
+    --text-dim: #8a8a8e;
+    --accent: #c8553d;
+    --accent-light: #e8a87c;
+    --border: #2a2a2e;
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Noto Sans SC', -apple-system, BlinkMacSystemFont, sans-serif;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .container {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  /* ===== HERO ===== */
+  .hero {
+    min-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 80px 0 60px;
+    position: relative;
+  }
+
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 1px;
+    background: var(--border);
+  }
+
+  .hero-label {
+    font-size: 13px;
+    letter-spacing: 4px;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 24px;
+    font-weight: 500;
+  }
+
+  .hero h1 {
+    font-family: 'Noto Serif SC', serif;
+    font-size: clamp(48px, 8vw, 88px);
+    font-weight: 900;
+    line-height: 1.1;
+    margin-bottom: 20px;
+    letter-spacing: -1px;
+  }
+
+  .hero-sub {
+    font-size: clamp(18px, 2.5vw, 24px);
+    color: var(--text-dim);
+    font-weight: 300;
+    margin-bottom: 40px;
+    line-height: 1.6;
+  }
+
+  .hero-meta {
+    display: flex;
+    gap: 32px;
+    flex-wrap: wrap;
+    font-size: 14px;
+    color: var(--text-dim);
+  }
+
+  .hero-meta span {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .hero-meta strong {
+    color: var(--text);
+    font-weight: 500;
+  }
+
+  /* ===== ABOUT ===== */
+  .about {
+    padding: 80px 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .section-label {
+    font-size: 13px;
+    letter-spacing: 3px;
+    color: var(--accent);
+    margin-bottom: 32px;
+    font-weight: 500;
+  }
+
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  @media (min-width: 768px) {
+    .about-grid { grid-template-columns: 1fr 1fr; }
+  }
+
+  .about-text {
+    font-size: 16px;
+    line-height: 1.9;
+    color: var(--text);
+  }
+
+  .about-text p { margin-bottom: 16px; }
+
+  .about-highlights {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .highlight-item {
+    background: var(--bg-card);
+    padding: 20px 24px;
+    border-radius: 8px;
+    border-left: 3px solid var(--accent);
+  }
+
+  .highlight-item h4 {
+    font-size: 14px;
+    color: var(--accent-light);
+    margin-bottom: 6px;
+    font-weight: 500;
+  }
+
+  .highlight-item p {
+    font-size: 14px;
+    color: var(--text-dim);
+    line-height: 1.6;
+  }
+
+  /* ===== PROJECTS ===== */
+  .projects {
+    padding: 80px 0;
+  }
+
+  .project {
+    margin-bottom: 80px;
+    padding-bottom: 60px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .project:last-child { border-bottom: none; }
+
+  .project-header {
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+    margin-bottom: 8px;
+    flex-wrap: wrap;
+  }
+
+  .project-num {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 14px;
+    color: var(--accent);
+    font-weight: 700;
+  }
+
+  .project-title {
+    font-family: 'Noto Serif SC', serif;
+    font-size: clamp(24px, 3.5vw, 36px);
+    font-weight: 700;
+    line-height: 1.3;
+  }
+
+  .project-tags {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 32px;
+    flex-wrap: wrap;
+  }
+
+  .tag {
+    font-size: 12px;
+    padding: 4px 12px;
+    border-radius: 20px;
+    background: var(--bg-card);
+    color: var(--text-dim);
+    border: 1px solid var(--border);
+  }
+
+  .project-body {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+
+  @media (min-width: 768px) {
+    .project-body { grid-template-columns: 1fr 1fr; }
+  }
+
+  .project-section h4 {
+    font-size: 13px;
+    color: var(--accent);
+    margin-bottom: 12px;
+    font-weight: 600;
+    letter-spacing: 1px;
+  }
+
+  .project-section p {
+    font-size: 15px;
+    line-height: 1.8;
+    color: var(--text-dim);
+  }
+
+  .project-section ul {
+    list-style: none;
+    padding: 0;
+  }
+
+  .project-section ul li {
+    font-size: 14px;
+    line-height: 1.8;
+    color: var(--text-dim);
+    padding-left: 16px;
+    position: relative;
+  }
+
+  .project-section ul li::before {
+    content: '—';
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+  }
+
+  .metrics {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+    margin-top: 24px;
+  }
+
+  @media (min-width: 500px) {
+    .metrics { grid-template-columns: repeat(3, 1fr); }
+  }
+
+  .metric {
+    background: var(--bg-card);
+    padding: 16px;
+    border-radius: 8px;
+    text-align: center;
+  }
+
+  .metric-value {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 28px;
+    font-weight: 900;
+    color: var(--accent-light);
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+
+  .metric-label {
+    font-size: 12px;
+    color: var(--text-dim);
+  }
+
+  .video-container {
+    margin-top: 24px;
+    border-radius: 8px;
+    overflow: hidden;
+    background: var(--bg-card);
+    aspect-ratio: 16 / 9;
+  }
+
+  .video-container iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+  }
+
+  /* ===== FOOTER ===== */
+  .footer {
+    padding: 80px 0;
+    text-align: center;
+    border-top: 1px solid var(--border);
+  }
+
+  .footer h2 {
+    font-family: 'Noto Serif SC', serif;
+    font-size: clamp(32px, 5vw, 48px);
+    font-weight: 900;
+    margin-bottom: 16px;
+  }
+
+  .footer p {
+    color: var(--text-dim);
+    font-size: 16px;
+  }
+
+  .footer-contact {
+    margin-top: 32px;
+    font-size: 15px;
+  }
+
+  .footer-contact a {
+    color: var(--accent-light);
+    text-decoration: none;
+    border-bottom: 1px solid var(--accent);
+    padding-bottom: 2px;
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== HERO ===== -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-label">PORTFOLIO · 2024—2025</div>
+    <h1>张泽禹</h1>
+    <p class="hero-sub">企业文化运营 / 活动策划 / 户外圈层<br>从一场攀岩赛到一场590万的攀冰大Party，我做的是把人和文化拧在一起的事。</p>
+    <div class="hero-meta">
+      <span>📍 成都</span>
+      <span>📞 <strong>19180831229</strong></span>
+      <span>🏔️ 徒步 · 登山 · 越野跑</span>
+    </div>
+  </div>
+</section>
+
+<!-- ===== ABOUT ===== -->
+<section class="about">
+  <div class="container">
+    <div class="section-label">关于我</div>
+    <div class="about-grid">
+      <div class="about-text">
+        <p>01年生，成都人。</p>
+        <p>2023.6—2025.4 任职于广州凯乐石运动科技有限公司，担任企业文化运营，任期1年10个月。</p>
+        <p>平时热爱徒步、登山、越野跑，自主攀登过技术型雪山——雅姆雪山(5330m)、巴郎山(5040m)、乌库楚(5526m)、那玛峰(5588m)；完赛深圳100越野赛50km、莫干山100越野赛35km、广州100越野赛35km。</p>
+      </div>
+      <div class="about-highlights">
+        <div class="highlight-item">
+          <h4>核心能力</h4>
+          <p>活动全流程策划与执行 · 预算控制 · UGC传播策略 · SOP沉淀 · 视频拍摄剪辑</p>
+        </div>
+        <div class="highlight-item">
+          <h4>风格</h4>
+          <p>从0到1搭体系，从1到10做规模化；既能8000块钱搞一场攀岩赛，也能590万操盘一场攀冰大Party。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== PROJECTS ===== -->
+<section class="projects">
+  <div class="container">
+    <div class="section-label">项目案例</div>
+
+    <!-- P1 -->
+    <div class="project">
+      <div class="project-header">
+        <span class="project-num">01</span>
+        <h2 class="project-title">KAILAS · 内部员工攀岩赛</h2>
+      </div>
+      <div class="project-tags">
+        <span class="tag">2024.08</span>
+        <span class="tag">品牌campaign联动</span>
+        <span class="tag">UGC运营</span>
+      </div>
+      <div class="project-body">
+        <div class="project-section">
+          <h4>背景</h4>
+          <p>2024年8月，配合品牌侧"中国攀岩"campaign发起内部员工活动。员工发布小红书UGC视频及图文，完成指定线路后进入比赛环节。</p>
+        </div>
+        <div class="project-section">
+          <h4>我做了什么</h4>
+          <ul>
+            <li>策划完整活动内容及前期运营</li>
+            <li>内部社群引流 + 海报招募</li>
+            <li>现场执行统筹</li>
+            <li>活动视频拍摄、剪辑与制作</li>
+          </ul>
+        </div>
+      </div>
+      <div class="metrics">
+        <div class="metric"><div class="metric-value">8000</div><div class="metric-label">总成本（含奖品）</div></div>
+        <div class="metric"><div class="metric-value">300+</div><div class="metric-label">UGC转发与发布</div></div>
+        <div class="metric"><div class="metric-value">9.2</div><div class="metric-label">活动满意度</div></div>
+      </div>
+      <div class="video-container">
+        <iframe src="//player.bilibili.com/player.html?bvid=BV1MAnw6rEt6&page=1&high_quality=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe>
+      </div>
+    </div>
+
+    <!-- P2 -->
+    <div class="project">
+      <div class="project-header">
+        <span class="project-num">02</span>
+        <h2 class="project-title">"动物大迁徙"搬迁活动</h2>
+      </div>
+      <div class="project-tags">
+        <span class="tag">2024.10</span>
+        <span class="tag">企业搬迁</span>
+        <span class="tag">大型活动</span>
+      </div>
+      <div class="project-body">
+        <div class="project-section">
+          <h4>背景</h4>
+          <p>2024年10月，企业走向国际化战略，需要更换更大更好的办公空间。以"动物大迁徙"为创意主线，策划一场有仪式感的搬迁活动。</p>
+        </div>
+        <div class="project-section">
+          <h4>我做了什么</h4>
+          <ul>
+            <li>活动内容策划：参考动物大迁徙画面</li>
+            <li>执行：回忆影展 → 最后一夜放映 → 徒步迁徙</li>
+            <li>供应商对接与协商</li>
+            <li>现场分工组织与统筹</li>
+            <li>员工UGC传播策略定制</li>
+          </ul>
+        </div>
+      </div>
+      <div class="metrics">
+        <div class="metric"><div class="metric-value">6W</div><div class="metric-label">落地成本</div></div>
+        <div class="metric"><div class="metric-value">800+</div><div class="metric-label">参与人数</div></div>
+        <div class="metric"><div class="metric-value">100+</div><div class="metric-label">UGC发布</div></div>
+      </div>
+    </div>
+
+    <!-- P3 -->
+    <div class="project">
+      <div class="project-header">
+        <span class="project-num">03</span>
+        <h2 class="project-title">星球探索计划</h2>
+      </div>
+      <div class="project-tags">
+        <span class="tag">长期项目</span>
+        <span class="tag">文化价值观落地</span>
+        <span class="tag">社群运营</span>
+      </div>
+      <div class="project-body">
+        <div class="project-section">
+          <h4>背景</h4>
+          <p>将企业文化价值观拆解后重新命名为"星球探索计划"——通过探索理念走进户外，挖掘深层自我，将户外体验反哺生活与工作，最终达到文化价值观的深度认同。</p>
+        </div>
+        <div class="project-section">
+          <h4>我做了什么</h4>
+          <ul>
+            <li>项目内容框架搭建</li>
+            <li>路线库建设与运营</li>
+            <li>内部探索官社群运营</li>
+            <li>活动内容、文案、素材制作与发布</li>
+            <li>主题活动策划、执行与传播</li>
+            <li>配合品牌部门文化IP联动</li>
+            <li>活动视频拍摄剪辑与制作</li>
+          </ul>
+        </div>
+      </div>
+      <div class="metrics">
+        <div class="metric"><div class="metric-value">1800+</div><div class="metric-label">总参与人次</div></div>
+        <div class="metric"><div class="metric-value">1500+</div><div class="metric-label">产出素材</div></div>
+        <div class="metric"><div class="metric-value">4.8</div><div class="metric-label">年度满意度（5分制）</div></div>
+      </div>
+    </div>
+
+    <!-- P4 -->
+    <div class="project">
+      <div class="project-header">
+        <span class="project-num">04</span>
+        <h2 class="project-title">GO BIG PARTY · SEA TO SKI</h2>
+      </div>
+      <div class="project-tags">
+        <span class="tag">2025.01</span>
+        <span class="tag">品牌侧年会项目</span>
+        <span class="tag">大预算项目</span>
+      </div>
+      <div class="project-body">
+        <div class="project-section">
+          <h4>背景</h4>
+          <p>与品牌侧合作的大型年会项目"GO BIG PARTY · SEA TO SKI"，配合"只为攀登"品牌campaign，以户外攀冰+WORKSHOP形式开展为期4天的活动（1.12—1.15），主会场深圳+分会场东北。教练式引导+每日任务卡，让参与者将户外能量转化到工作与生活中。</p>
+        </div>
+        <div class="project-section">
+          <h4>我做了什么</h4>
+          <ul>
+            <li>项目活动整体统筹及内容策划</li>
+            <li>与当地政府协调活动场地</li>
+            <li>多方供应商对接与谈判</li>
+          </ul>
+        </div>
+      </div>
+      <div class="metrics">
+        <div class="metric"><div class="metric-value">590W</div><div class="metric-label">总成本（谈价后省180W）</div></div>
+        <div class="metric"><div class="metric-value">620W+</div><div class="metric-label">小红书话题浏览量</div></div>
+        <div class="metric"><div class="metric-value">1500W</div><div class="metric-label">助力BM45冲锋衣销售额</div></div>
+      </div>
+    </div>
+
+    <!-- P5 -->
+    <div class="project">
+      <div class="project-header">
+        <span class="project-num">05</span>
+        <h2 class="project-title">只为攀登 · 攀冰活动</h2>
+      </div>
+      <div class="project-tags">
+        <span class="tag">2025.01</span>
+        <span class="tag">户外体验</span>
+        <span class="tag">内容传播</span>
+      </div>
+      <div class="project-body">
+        <div class="project-section">
+          <h4>背景</h4>
+          <p>配合品牌"只为攀登"推广，攀冰+WORKSHOP形式，通过教练式引导和任务卡，让参与者真正理解如何将户外经历的"能量"转化到工作与生活中——热爱、勇敢、专注、探索。</p>
+        </div>
+        <div class="project-section">
+          <h4>我做了什么</h4>
+          <ul>
+            <li>项目活动主统筹及内容策划</li>
+            <li>活动整体运营工作</li>
+            <li>活动内容传播</li>
+            <li>活动SOP沉淀</li>
+            <li>视频制作</li>
+          </ul>
+        </div>
+      </div>
+      <div class="metrics">
+        <div class="metric"><div class="metric-value">9W+</div><div class="metric-label">活动总成本</div></div>
+        <div class="metric"><div class="metric-value">500W+</div><div class="metric-label">小红书话题浏览量</div></div>
+        <div class="metric"><div class="metric-value">98</div><div class="metric-label">员工满意度</div></div>
+      </div>
+    </div>
+
+    <!-- P6 -->
+    <div class="project">
+      <div class="project-header">
+        <span class="project-num">06</span>
+        <h2 class="project-title">新春开年跑 &amp; VAUDE新春开年骑</h2>
+      </div>
+      <div class="project-tags">
+        <span class="tag">2025.02</span>
+        <span class="tag">双线活动</span>
+        <span class="tag">开工大吉</span>
+      </div>
+      <div class="project-body">
+        <div class="project-section">
+          <h4>背景</h4>
+          <p>为新一年开工增添"开工大吉"的寓意，举办双线粤式新春开工活动（KAILAS越野跑 + VAUDE骑行）。</p>
+        </div>
+        <div class="project-section">
+          <h4>我做了什么</h4>
+          <ul>
+            <li>双线项目主统筹及内容策划</li>
+            <li>活动整体运营</li>
+            <li>活动内容传播</li>
+            <li>活动SOP沉淀</li>
+          </ul>
+        </div>
+      </div>
+      <div class="metrics">
+        <div class="metric"><div class="metric-value">7W+</div><div class="metric-label">双活动总成本</div></div>
+        <div class="metric"><div class="metric-value">380</div><div class="metric-label">合计参与人数</div></div>
+        <div class="metric"><div class="metric-value">95</div><div class="metric-label">员工满意度</div></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<section class="footer">
+  <div class="container">
+    <h2>Thanks</h2>
+    <p>如果你也在找一个能从0搭体系、也能从10冲100的人</p>
+    <div class="footer-contact">
+      <p>📞 <a href="tel:19180831229">191-8083-1229</a></p>
+    </div>
+  </div>
+</section>
+
+</body>
+</html>
