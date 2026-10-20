@@ -11,85 +11,93 @@
   * { margin: 0; padding: 0; box-sizing: border-box; }
 
   :root {
-    --bg: #0e0e10;
-    --bg-card: #1a1a1e;
+    --bg: #0b0f0d;
     --text: #e8e6e1;
-    --text-dim: #8a8a8e;
+    --text-dim: #7a8a82;
+    --text-faint: #55605a;
     --accent: #c8553d;
     --accent-light: #e8a87c;
-    --border: #2a2a2e;
+    --line: rgba(255,255,255,0.06);
   }
+
+  html { scroll-behavior: smooth; }
 
   body {
     background: var(--bg);
     color: var(--text);
     font-family: 'Noto Sans SC', -apple-system, BlinkMacSystemFont, sans-serif;
-    line-height: 1.7;
+    line-height: 1.8;
     -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  /* 背景山影 */
+  .bg-mountains {
+    position: fixed;
+    bottom: 0; left: 0; right: 0;
+    height: 50vh;
+    z-index: -1;
+    opacity: 0.12;
+    pointer-events: none;
+  }
+
+  /* 滚动进度条 */
+  .progress-bar {
+    position: fixed;
+    top: 0; left: 0;
+    height: 2px;
+    width: 0%;
+    background: var(--accent);
+    z-index: 1000;
   }
 
   .container {
-    max-width: 960px;
+    max-width: 880px;
     margin: 0 auto;
-    padding: 0 24px;
+    padding: 0 32px;
   }
 
   /* ===== HERO ===== */
   .hero {
-    min-height: 90vh;
+    min-height: 85vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    padding: 80px 0 60px;
-    position: relative;
-  }
-
-  .hero::after {
-    content: '';
-    position: absolute;
-    bottom: 0; left: 0; right: 0;
-    height: 1px;
-    background: var(--border);
+    padding: 100px 0 60px;
   }
 
   .hero-label {
-    font-size: 13px;
-    letter-spacing: 4px;
+    font-size: 12px;
+    letter-spacing: 5px;
     color: var(--accent);
-    text-transform: uppercase;
-    margin-bottom: 24px;
+    margin-bottom: 32px;
     font-weight: 500;
   }
 
   .hero h1 {
     font-family: 'Noto Serif SC', serif;
-    font-size: clamp(48px, 8vw, 88px);
+    font-size: clamp(56px, 10vw, 100px);
     font-weight: 900;
-    line-height: 1.1;
-    margin-bottom: 20px;
-    letter-spacing: -1px;
+    line-height: 1;
+    margin-bottom: 24px;
+    letter-spacing: -2px;
   }
 
   .hero-sub {
-    font-size: clamp(18px, 2.5vw, 24px);
+    font-size: clamp(18px, 2.5vw, 22px);
     color: var(--text-dim);
     font-weight: 300;
-    margin-bottom: 40px;
-    line-height: 1.6;
+    margin-bottom: 48px;
+    line-height: 1.7;
+    max-width: 600px;
   }
 
   .hero-meta {
     display: flex;
-    gap: 32px;
+    gap: 40px;
     flex-wrap: wrap;
     font-size: 14px;
     color: var(--text-dim);
-  }
-
-  .hero-meta span {
-    display: flex;
-    align-items: center;
-    gap: 8px;
   }
 
   .hero-meta strong {
@@ -97,119 +105,105 @@
     font-weight: 500;
   }
 
-  /* ===== ABOUT ===== */
-  .about {
-    padding: 80px 0;
-    border-bottom: 1px solid var(--border);
+  /* ===== SECTION通用 ===== */
+  .section {
+    padding: 100px 0;
+    border-top: 1px solid var(--line);
   }
 
   .section-label {
-    font-size: 13px;
-    letter-spacing: 3px;
+    font-size: 12px;
+    letter-spacing: 4px;
     color: var(--accent);
-    margin-bottom: 32px;
+    margin-bottom: 48px;
     font-weight: 500;
   }
 
+  /* ===== ABOUT ===== */
   .about-grid {
     display: grid;
     grid-template-columns: 1fr;
-    gap: 40px;
+    gap: 48px;
   }
 
   @media (min-width: 768px) {
-    .about-grid { grid-template-columns: 1fr 1fr; }
+    .about-grid { grid-template-columns: 1.2fr 1fr; }
   }
 
-  .about-text {
-    font-size: 16px;
-    line-height: 1.9;
+  .about-text p {
+    font-size: 15px;
+    line-height: 2;
+    color: var(--text-dim);
+    margin-bottom: 20px;
+  }
+
+  .about-text strong {
     color: var(--text);
   }
 
-  .about-text p { margin-bottom: 16px; }
-
-  .about-highlights {
+  .about-points {
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: 32px;
   }
 
-  .highlight-item {
-    background: var(--bg-card);
-    padding: 20px 24px;
-    border-radius: 8px;
-    border-left: 3px solid var(--accent);
-  }
-
-  .highlight-item h4 {
-    font-size: 14px;
+  .about-point h4 {
+    font-size: 13px;
     color: var(--accent-light);
-    margin-bottom: 6px;
+    margin-bottom: 8px;
     font-weight: 500;
+    letter-spacing: 1px;
   }
 
-  .highlight-item p {
+  .about-point p {
     font-size: 14px;
     color: var(--text-dim);
-    line-height: 1.6;
+    line-height: 1.8;
   }
 
   /* ===== PROJECTS ===== */
-  .projects {
-    padding: 80px 0;
-  }
-
   .project {
-    margin-bottom: 80px;
-    padding-bottom: 60px;
-    border-bottom: 1px solid var(--border);
+    margin-bottom: 120px;
   }
 
-  .project:last-child { border-bottom: none; }
+  .project:last-child { margin-bottom: 0; }
 
   .project-header {
     display: flex;
     align-items: baseline;
-    gap: 16px;
-    margin-bottom: 8px;
-    flex-wrap: wrap;
+    gap: 24px;
+    margin-bottom: 12px;
   }
 
   .project-num {
     font-family: 'Noto Serif SC', serif;
-    font-size: 14px;
+    font-size: 64px;
+    font-weight: 900;
     color: var(--accent);
-    font-weight: 700;
+    opacity: 0.3;
+    line-height: 1;
   }
 
   .project-title {
     font-family: 'Noto Serif SC', serif;
-    font-size: clamp(24px, 3.5vw, 36px);
+    font-size: clamp(28px, 4vw, 40px);
     font-weight: 700;
-    line-height: 1.3;
+    line-height: 1.2;
   }
 
-  .project-tags {
-    display: flex;
-    gap: 8px;
-    margin-bottom: 32px;
-    flex-wrap: wrap;
-  }
-
-  .tag {
-    font-size: 12px;
-    padding: 4px 12px;
-    border-radius: 20px;
-    background: var(--bg-card);
-    color: var(--text-dim);
-    border: 1px solid var(--border);
+  .project-meta {
+    font-size: 13px;
+    color: var(--text-faint);
+    margin-bottom: 40px;
+    margin-left: 88px;
+    letter-spacing: 1px;
   }
 
   .project-body {
     display: grid;
     grid-template-columns: 1fr;
-    gap: 32px;
+    gap: 40px;
+    margin-bottom: 40px;
   }
 
   @media (min-width: 768px) {
@@ -217,16 +211,16 @@
   }
 
   .project-section h4 {
-    font-size: 13px;
+    font-size: 12px;
     color: var(--accent);
-    margin-bottom: 12px;
+    margin-bottom: 16px;
     font-weight: 600;
-    letter-spacing: 1px;
+    letter-spacing: 2px;
   }
 
   .project-section p {
-    font-size: 15px;
-    line-height: 1.8;
+    font-size: 14px;
+    line-height: 1.9;
     color: var(--text-dim);
   }
 
@@ -237,57 +231,109 @@
 
   .project-section ul li {
     font-size: 14px;
-    line-height: 1.8;
+    line-height: 1.9;
     color: var(--text-dim);
-    padding-left: 16px;
+    padding-left: 20px;
     position: relative;
   }
 
   .project-section ul li::before {
-    content: '—';
+    content: '';
     position: absolute;
     left: 0;
-    color: var(--accent);
+    top: 14px;
+    width: 6px;
+    height: 1px;
+    background: var(--accent);
   }
 
+  /* 数据展示 */
   .metrics {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 16px;
-    margin-top: 24px;
-  }
-
-  @media (min-width: 500px) {
-    .metrics { grid-template-columns: repeat(3, 1fr); }
+    display: flex;
+    gap: 48px;
+    flex-wrap: wrap;
+    padding: 24px 0;
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    margin-bottom: 32px;
   }
 
   .metric {
-    background: var(--bg-card);
-    padding: 16px;
-    border-radius: 8px;
-    text-align: center;
+    flex: 1;
+    min-width: 100px;
   }
 
   .metric-value {
     font-family: 'Noto Serif SC', serif;
-    font-size: 28px;
+    font-size: 36px;
     font-weight: 900;
-    color: var(--accent-light);
+    color: var(--text);
     line-height: 1;
-    margin-bottom: 6px;
+    margin-bottom: 8px;
   }
 
   .metric-label {
     font-size: 12px;
+    color: var(--text-faint);
+    letter-spacing: 1px;
+  }
+
+  /* 视频占位 - 点击播放 */
+  .video-placeholder {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    background: linear-gradient(135deg, #1a2420, #0f1512);
+    border-radius: 4px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    transition: background 0.3s ease;
+    overflow: hidden;
+  }
+
+  .video-placeholder:hover {
+    background: linear-gradient(135deg, #22302a, #151d18);
+  }
+
+  .video-placeholder .play-icon {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background: var(--accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s ease;
+  }
+
+  .video-placeholder:hover .play-icon {
+    transform: scale(1.1);
+  }
+
+  .video-placeholder .play-icon::after {
+    content: '';
+    border-left: 16px solid white;
+    border-top: 10px solid transparent;
+    border-bottom: 10px solid transparent;
+    margin-left: 4px;
+  }
+
+  .video-placeholder .video-label {
+    font-size: 14px;
     color: var(--text-dim);
+    letter-spacing: 1px;
   }
 
   .video-container {
-    margin-top: 24px;
-    border-radius: 8px;
-    overflow: hidden;
-    background: var(--bg-card);
+    width: 100%;
     aspect-ratio: 16 / 9;
+    border-radius: 4px;
+    overflow: hidden;
+    margin-top: 16px;
   }
 
   .video-container iframe {
@@ -298,26 +344,27 @@
 
   /* ===== FOOTER ===== */
   .footer {
-    padding: 80px 0;
+    padding: 120px 0;
     text-align: center;
-    border-top: 1px solid var(--border);
+    border-top: 1px solid var(--line);
   }
 
   .footer h2 {
     font-family: 'Noto Serif SC', serif;
-    font-size: clamp(32px, 5vw, 48px);
+    font-size: clamp(40px, 6vw, 64px);
     font-weight: 900;
-    margin-bottom: 16px;
+    margin-bottom: 20px;
   }
 
   .footer p {
     color: var(--text-dim);
     font-size: 16px;
+    font-weight: 300;
   }
 
   .footer-contact {
-    margin-top: 32px;
-    font-size: 15px;
+    margin-top: 40px;
+    font-size: 18px;
   }
 
   .footer-contact a {
@@ -326,42 +373,66 @@
     border-bottom: 1px solid var(--accent);
     padding-bottom: 2px;
   }
+
+  /* 滚动动画 */
+  .reveal {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.9s ease, transform 0.9s ease;
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .reveal { opacity: 1; transform: none; }
+    html { scroll-behavior: auto; }
+  }
 </style>
 </head>
 <body>
 
+<!-- 背景山影 -->
+<svg class="bg-mountains" viewBox="0 0 1440 600" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M0,600 L0,350 Q180,200 360,280 Q540,360 720,200 Q900,40 1080,180 Q1260,320 1440,150 L1440,600 Z" fill="rgba(100,140,120,0.4)"/>
+</svg>
+
+<div class="progress-bar" id="progressBar"></div>
+
 <!-- ===== HERO ===== -->
 <section class="hero">
   <div class="container">
-    <div class="hero-label">PORTFOLIO · 2024—2025</div>
-    <h1>张泽禹</h1>
-    <p class="hero-sub">企业文化运营 / 活动策划 / 户外圈层<br>从一场攀岩赛到一场590万的攀冰大Party，我做的是把人和文化拧在一起的事。</p>
-    <div class="hero-meta">
-      <span>📍 成都</span>
-      <span>📞 <strong>19180831229</strong></span>
-      <span>🏔️ 徒步 · 登山 · 越野跑</span>
+    <div class="hero-label reveal visible">PORTFOLIO · 2024—2025</div>
+    <h1 class="reveal visible">张泽禹</h1>
+    <p class="hero-sub reveal visible">企业文化运营 / 活动策划 / 户外圈层。<br>从一场攀岩赛到一场590万的年会项目，我做的是把人和文化拧在一起的事。</p>
+    <div class="hero-meta reveal visible">
+      <span>成都</span>
+      <span><strong>19180831229</strong></span>
+      <span>徒步 · 登山 · 越野跑</span>
     </div>
   </div>
 </section>
 
 <!-- ===== ABOUT ===== -->
-<section class="about">
+<section class="section about">
   <div class="container">
-    <div class="section-label">关于我</div>
+    <div class="section-label reveal">关于我</div>
     <div class="about-grid">
-      <div class="about-text">
+      <div class="about-text reveal">
         <p>01年生，成都人。</p>
         <p>2023.6—2025.4 任职于广州凯乐石运动科技有限公司，担任企业文化运营，任期1年10个月。</p>
         <p>平时热爱徒步、登山、越野跑，自主攀登过技术型雪山——雅姆雪山(5330m)、巴郎山(5040m)、乌库楚(5526m)、那玛峰(5588m)；完赛深圳100越野赛50km、莫干山100越野赛35km、广州100越野赛35km。</p>
       </div>
-      <div class="about-highlights">
-        <div class="highlight-item">
+      <div class="about-points reveal">
+        <div class="about-point">
           <h4>核心能力</h4>
           <p>活动全流程策划与执行 · 预算控制 · UGC传播策略 · SOP沉淀 · 视频拍摄剪辑</p>
         </div>
-        <div class="highlight-item">
-          <h4>风格</h4>
-          <p>从0到1搭体系，从1到10做规模化；既能8000块钱搞一场攀岩赛，也能590万操盘一场攀冰大Party。</p>
+        <div class="about-point">
+          <h4>做事风格</h4>
+          <p>从0到1搭体系，从1到10做规模化。8000块的攀岩赛和590万的年会项目，都能接得住。</p>
         </div>
       </div>
     </div>
@@ -369,25 +440,21 @@
 </section>
 
 <!-- ===== PROJECTS ===== -->
-<section class="projects">
+<section class="section">
   <div class="container">
-    <div class="section-label">项目案例</div>
+    <div class="section-label reveal">项目案例</div>
 
     <!-- P1 -->
-    <div class="project">
+    <div class="project reveal">
       <div class="project-header">
         <span class="project-num">01</span>
-        <h2 class="project-title">KAILAS · 内部员工攀岩赛</h2>
+        <h2 class="project-title">内部员工攀岩赛</h2>
       </div>
-      <div class="project-tags">
-        <span class="tag">2024.08</span>
-        <span class="tag">品牌campaign联动</span>
-        <span class="tag">UGC运营</span>
-      </div>
+      <div class="project-meta">2024.08 · 品牌campaign联动 · UGC运营</div>
       <div class="project-body">
         <div class="project-section">
           <h4>背景</h4>
-          <p>2024年8月，配合品牌侧"中国攀岩"campaign发起内部员工活动。员工发布小红书UGC视频及图文，完成指定线路后进入比赛环节。</p>
+          <p>配合品牌侧"中国攀岩"campaign发起内部员工活动。员工发布小红书UGC视频及图文，完成指定线路后进入比赛环节。</p>
         </div>
         <div class="project-section">
           <h4>我做了什么</h4>
@@ -404,26 +471,23 @@
         <div class="metric"><div class="metric-value">300+</div><div class="metric-label">UGC转发与发布</div></div>
         <div class="metric"><div class="metric-value">9.2</div><div class="metric-label">活动满意度</div></div>
       </div>
-      <div class="video-container">
-        <iframe src="//player.bilibili.com/player.html?bvid=BV1MAnw6rEt6&page=1&high_quality=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe>
+      <div class="video-placeholder" data-bv="BV1MAnw6rEt6">
+        <div class="play-icon"></div>
+        <div class="video-label">观看活动回顾</div>
       </div>
     </div>
 
     <!-- P2 -->
-    <div class="project">
+    <div class="project reveal">
       <div class="project-header">
         <span class="project-num">02</span>
         <h2 class="project-title">"动物大迁徙"搬迁活动</h2>
       </div>
-      <div class="project-tags">
-        <span class="tag">2024.10</span>
-        <span class="tag">企业搬迁</span>
-        <span class="tag">大型活动</span>
-      </div>
+      <div class="project-meta">2024.10 · 企业搬迁 · 大型活动</div>
       <div class="project-body">
         <div class="project-section">
           <h4>背景</h4>
-          <p>2024年10月，企业走向国际化战略，需要更换更大更好的办公空间。以"动物大迁徙"为创意主线，策划一场有仪式感的搬迁活动。</p>
+          <p>企业走向国际化战略，需要更换更大更好的办公空间。以"动物大迁徙"为创意主线，策划一场有仪式感的搬迁活动。</p>
         </div>
         <div class="project-section">
           <h4>我做了什么</h4>
@@ -441,22 +505,19 @@
         <div class="metric"><div class="metric-value">800+</div><div class="metric-label">参与人数</div></div>
         <div class="metric"><div class="metric-value">100+</div><div class="metric-label">UGC发布</div></div>
       </div>
-      <div class="video-container">
-        <iframe src="//player.bilibili.com/player.html?bvid=BV1TMnw6METs&page=1&high_quality=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe>
+      <div class="video-placeholder" data-bv="BV1TMnw6METs">
+        <div class="play-icon"></div>
+        <div class="video-label">观看活动回顾</div>
       </div>
     </div>
 
     <!-- P3 -->
-    <div class="project">
+    <div class="project reveal">
       <div class="project-header">
         <span class="project-num">03</span>
         <h2 class="project-title">星球探索计划</h2>
       </div>
-      <div class="project-tags">
-        <span class="tag">长期项目</span>
-        <span class="tag">文化价值观落地</span>
-        <span class="tag">社群运营</span>
-      </div>
+      <div class="project-meta">长期项目 · 文化价值观落地 · 社群运营</div>
       <div class="project-body">
         <div class="project-section">
           <h4>背景</h4>
@@ -480,26 +541,23 @@
         <div class="metric"><div class="metric-value">1500+</div><div class="metric-label">产出素材</div></div>
         <div class="metric"><div class="metric-value">4.8</div><div class="metric-label">年度满意度（5分制）</div></div>
       </div>
-      <div class="video-container">
-        <iframe src="//player.bilibili.com/player.html?bvid=BV1N3nw6KEnT&page=1&high_quality=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe>
+      <div class="video-placeholder" data-bv="BV1N3nw6KEnT">
+        <div class="play-icon"></div>
+        <div class="video-label">观看24年全回顾（山民说）</div>
       </div>
     </div>
 
     <!-- P4 -->
-    <div class="project">
+    <div class="project reveal">
       <div class="project-header">
         <span class="project-num">04</span>
         <h2 class="project-title">GO BIG PARTY · SEA TO SKI</h2>
       </div>
-      <div class="project-tags">
-        <span class="tag">2025.01</span>
-        <span class="tag">品牌侧年会项目</span>
-        <span class="tag">大预算项目</span>
-      </div>
+      <div class="project-meta">2025.01 · 品牌侧年会项目 · 大预算项目</div>
       <div class="project-body">
         <div class="project-section">
           <h4>背景</h4>
-          <p>与品牌侧合作的大型年会项目"GO BIG PARTY · SEA TO SKI"，配合"只为攀登"品牌campaign，以户外攀冰+WORKSHOP形式开展为期4天的活动（1.12—1.15），主会场深圳+分会场东北。教练式引导+每日任务卡，让参与者将户外能量转化到工作与生活中。</p>
+          <p>与品牌侧合作的大型年会项目，配合"只为攀登"品牌campaign，以户外攀冰+WORKSHOP形式开展为期4天的活动（1.12—1.15），主会场深圳+分会场东北。教练式引导+每日任务卡，让参与者将户外能量转化到工作与生活中。</p>
         </div>
         <div class="project-section">
           <h4>我做了什么</h4>
@@ -515,22 +573,19 @@
         <div class="metric"><div class="metric-value">620W+</div><div class="metric-label">小红书话题浏览量</div></div>
         <div class="metric"><div class="metric-value">1500W</div><div class="metric-label">助力BM45冲锋衣销售额</div></div>
       </div>
-      <div class="video-container">
-        <iframe src="//player.bilibili.com/player.html?bvid=BV1KMnw6MEpN&page=1&high_quality=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe>
+      <div class="video-placeholder" data-bv="BV1KMnw6MEpN">
+        <div class="play-icon"></div>
+        <div class="video-label">观看年会总回顾</div>
       </div>
     </div>
 
     <!-- P5 -->
-    <div class="project">
+    <div class="project reveal">
       <div class="project-header">
         <span class="project-num">05</span>
         <h2 class="project-title">只为攀登 · 攀冰活动</h2>
       </div>
-      <div class="project-tags">
-        <span class="tag">2025.01</span>
-        <span class="tag">户外体验</span>
-        <span class="tag">内容传播</span>
-      </div>
+      <div class="project-meta">2025.01 · 户外体验 · 内容传播</div>
       <div class="project-body">
         <div class="project-section">
           <h4>背景</h4>
@@ -552,22 +607,19 @@
         <div class="metric"><div class="metric-value">500W+</div><div class="metric-label">小红书话题浏览量</div></div>
         <div class="metric"><div class="metric-value">98</div><div class="metric-label">员工满意度</div></div>
       </div>
-      <div class="video-container">
-        <iframe src="//player.bilibili.com/player.html?bvid=BV113nw6KEJq&page=1&high_quality=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe>
+      <div class="video-placeholder" data-bv="BV113nw6KEJq">
+        <div class="play-icon"></div>
+        <div class="video-label">观看活动回顾</div>
       </div>
     </div>
 
     <!-- P6 -->
-    <div class="project">
+    <div class="project reveal">
       <div class="project-header">
         <span class="project-num">06</span>
-        <h2 class="project-title">新春开年跑 &amp; VAUDE新春开年骑</h2>
+        <h2 class="project-title">新春开年跑 &amp; 开年骑</h2>
       </div>
-      <div class="project-tags">
-        <span class="tag">2025.02</span>
-        <span class="tag">双线活动</span>
-        <span class="tag">开工大吉</span>
-      </div>
+      <div class="project-meta">2025.02 · 双线活动 · 开工大吉</div>
       <div class="project-body">
         <div class="project-section">
           <h4>背景</h4>
@@ -588,11 +640,13 @@
         <div class="metric"><div class="metric-value">380</div><div class="metric-label">合计参与人数</div></div>
         <div class="metric"><div class="metric-value">95</div><div class="metric-label">员工满意度</div></div>
       </div>
-      <div class="video-container">
-        <iframe src="//player.bilibili.com/player.html?bvid=BV1PGnw6vEVj&page=1&high_quality=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe>
+      <div class="video-placeholder" data-bv="BV1PGnw6vEVj">
+        <div class="play-icon"></div>
+        <div class="video-label">观看开年跑回顾</div>
       </div>
-      <div class="video-container" style="margin-top:16px">
-        <iframe src="//player.bilibili.com/player.html?bvid=BV1C3nw6PEfu&page=1&high_quality=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe>
+      <div class="video-placeholder" data-bv="BV1C3nw6PEfu" style="margin-top:16px">
+        <div class="play-icon"></div>
+        <div class="video-label">观看开年骑回顾</div>
       </div>
     </div>
 
@@ -600,15 +654,41 @@
 </section>
 
 <!-- ===== FOOTER ===== -->
-<section class="footer">
+<section class="footer reveal">
   <div class="container">
     <h2>Thanks</h2>
     <p>如果你也在找一个能从0搭体系、也能从10冲100的人</p>
     <div class="footer-contact">
-      <p>📞 <a href="tel:19180831229">191-8083-1229</a></p>
+      <a href="tel:19180831229">191-8083-1229</a>
     </div>
   </div>
 </section>
+
+<script>
+  // 滚动进度条
+  const progressBar = document.getElementById('progressBar');
+  window.addEventListener('scroll', () => {
+    const h = document.documentElement;
+    progressBar.style.width = (h.scrollTop / (h.scrollHeight - h.clientHeight) * 100) + '%';
+  });
+
+  // 滚动淡入
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  // 视频点击加载
+  document.querySelectorAll('.video-placeholder').forEach(placeholder => {
+    placeholder.addEventListener('click', () => {
+      const bv = placeholder.dataset.bv;
+      const container = document.createElement('div');
+      container.className = 'video-container';
+      container.innerHTML = `<iframe src="//player.bilibili.com/player.html?bvid=${bv}&page=1&high_quality=1&autoplay=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe>`;
+      placeholder.replaceWith(container);
+    });
+  });
+</script>
 
 </body>
 </html>
