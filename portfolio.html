@@ -1,0 +1,1039 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>张泽禹 · 企业文化运营作品集</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>Z</text></svg>">
+<link rel="stylesheet" href="https://miaoda.feishu.cn/fonts/css2?family=Inter:wght@300;400;500;600;700;800&family=Noto+Sans+SC:wght@300;400;500;700&display=swap">
+<script src="https://fastly.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+<script src="https://fastly.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --bg: #0a0a0a;
+    --text: #ffffff;
+    --text-dim: #c8c8cd;
+    --text-faint: #88888e;
+    --accent: #c19a4a;
+    --accent-light: #d4b36a;
+    --line: rgba(255,255,255,0.1);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', 'Inter', 'PingFang SC', 'Noto Sans SC', 'Helvetica Neue', sans-serif;
+    line-height: 1.8;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+    position: relative;
+  }
+
+  @media (hover: hover) {
+    body { cursor: none; }
+    a, button, .video-placeholder { cursor: none; }
+  }
+
+  /* ===== 背景系统 ===== */
+  .bg-layer {
+    position: fixed;
+    inset: 0;
+    z-index: -2;
+    pointer-events: none;
+  }
+
+  /* 天空渐变 - 凯乐石岩壁黑底 */
+  .bg-sky {
+    background: linear-gradient(180deg,
+      #0a0a0a 0%,
+      #111111 40%,
+      #161616 70%,
+      #1a1a1a 100%);
+  }
+
+  /* 山景照片背景 - 霞慕尼风格，薄雾感 */
+  .bg-mountain-photo {
+    background: url('https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?q=80&w=1920&auto=format&fit=crop') center/cover no-repeat;
+    opacity: 0.25;
+    filter: blur(1px) saturate(0.7) brightness(0.7);
+  }
+
+  /* 雾气层 */
+  .bg-fog {
+    background: radial-gradient(ellipse 80% 50% at 50% 80%,
+      rgba(168,153,208,0.06) 0%,
+      transparent 70%);
+  }
+
+  /* 颗粒纹理 */
+  .bg-grain {
+    opacity: 0.05;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  }
+
+  /* 鼠标涟漪 */
+  .ripple {
+    position: fixed;
+    border-radius: 50%;
+    border: 1px solid rgba(193,154,74,0.4);
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+  }
+
+  /* 鼠标跟随光晕 */
+  .cursor-glow {
+    position: fixed;
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(193,154,74,0.08) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+    transform: translate(-50%, -50%);
+    transition: opacity 0.3s ease;
+  }
+
+  /* 自定义鼠标光标 - 冰镐 */
+  .cursor-dot {
+    position: fixed;
+    width: 32px;
+    height: 32px;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-4px, -2px) rotate(-15deg);
+    transition: opacity 0.2s ease;
+  }
+
+  .cursor-dot svg {
+    width: 100%;
+    height: 100%;
+    color: var(--accent-light);
+    filter: drop-shadow(0 0 4px rgba(193,154,74,0.5));
+  }
+
+  .cursor-ring {
+    position: fixed;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: 1px solid rgba(193,154,74,0.4);
+    pointer-events: none;
+    z-index: 9998;
+    transform: translate(-50%, -50%);
+    transition: width 0.3s ease, height 0.3s ease, border-color 0.3s ease;
+  }
+
+  .cursor-dot.hover {
+    opacity: 0;
+  }
+
+  .cursor-ring.hover {
+    width: 56px;
+    height: 56px;
+    border-color: var(--accent);
+  }
+
+  @media (hover: none) {
+    .cursor-dot, .cursor-ring { display: none; }
+  }
+
+  /* 右侧导航 */
+  .side-nav {
+    position: fixed;
+    right: 32px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .side-nav a {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+    color: var(--text-faint);
+    font-size: 11px;
+    letter-spacing: 1.5px;
+    transition: color 0.3s ease;
+  }
+
+  .side-nav a .dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    border: 1px solid var(--text-faint);
+    transition: all 0.3s ease;
+    flex-shrink: 0;
+  }
+
+  .side-nav a.active {
+    color: var(--text);
+  }
+
+  .side-nav a.active .dot {
+    background: var(--accent);
+    border-color: var(--accent);
+    transform: scale(1.3);
+  }
+
+  .side-nav a .label {
+    opacity: 0;
+    transform: translateX(8px);
+    transition: all 0.3s ease;
+    white-space: nowrap;
+  }
+
+  .side-nav a:hover .label,
+  .side-nav a.active .label {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  @media (max-width: 768px) {
+    .side-nav { display: none; }
+  }
+
+  /* 多层山影视差 */
+  .bg-mountains {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 60vh;
+    z-index: -1;
+    pointer-events: none;
+  }
+
+  .mountain-layer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    will-change: transform;
+  }
+
+  .mountain-far { opacity: 0.15; }
+  .mountain-mid { opacity: 0.22; }
+  .mountain-near { opacity: 0.3; }
+
+  /* 滚动进度条 */
+  .progress-bar {
+    position: fixed;
+    top: 0; left: 0;
+    height: 2px;
+    width: 0%;
+    background: var(--accent);
+    z-index: 1000;
+  }
+
+  .container {
+    max-width: 880px;
+    margin: 0 auto;
+    padding: 0 32px;
+  }
+
+  /* ===== HERO ===== */
+  .hero {
+    min-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 100px 0 60px;
+    position: relative;
+  }
+
+  .hero-label {
+    font-size: 12px;
+    letter-spacing: 6px;
+    color: var(--accent);
+    margin-bottom: 32px;
+    font-weight: 500;
+  }
+
+  .hero h1 {
+    font-family: 'PingFang SC', -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Inter', sans-serif;
+    font-size: clamp(60px, 11vw, 110px);
+    font-weight: 600;
+    line-height: 1.05;
+    margin-bottom: 28px;
+    letter-spacing: -2px;
+    color: #f0ede8;
+  }
+
+  .hero-sub {
+    font-size: clamp(17px, 2.2vw, 21px);
+    color: var(--text-dim);
+    font-weight: 300;
+    margin-bottom: 48px;
+    line-height: 1.8;
+    max-width: 580px;
+  }
+
+  .hero-meta {
+    display: flex;
+    gap: 40px;
+    flex-wrap: wrap;
+    font-size: 14px;
+    color: var(--text-faint);
+  }
+
+  .hero-meta strong {
+    color: var(--text);
+    font-weight: 500;
+  }
+
+  /* 向下滚动提示 */
+  .scroll-hint {
+    position: absolute;
+    bottom: 40px;
+    left: 32px;
+    font-size: 11px;
+    letter-spacing: 3px;
+    color: var(--text-faint);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .scroll-hint::after {
+    content: '';
+    width: 1px;
+    height: 40px;
+    background: var(--text-faint);
+    animation: scrollPulse 2s ease-in-out infinite;
+  }
+
+  @keyframes scrollPulse {
+    0%, 100% { opacity: 0.3; transform: scaleY(0.5); }
+    50% { opacity: 1; transform: scaleY(1); }
+  }
+
+  /* ===== SECTION通用 ===== */
+  .section {
+    padding: 120px 0;
+    border-top: 1px solid var(--line);
+  }
+
+  .section-label {
+    font-size: 12px;
+    letter-spacing: 5px;
+    color: var(--accent);
+    margin-bottom: 60px;
+    font-weight: 500;
+  }
+
+  /* ===== ABOUT ===== */
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 60px;
+  }
+
+  @media (min-width: 768px) {
+    .about-grid { grid-template-columns: 1.2fr 1fr; gap: 60px; }
+  }
+
+  .about-text p {
+    font-size: 15px;
+    line-height: 2.1;
+    color: var(--text-dim);
+    margin-bottom: 20px;
+  }
+
+  .about-text strong {
+    color: var(--text);
+  }
+
+  .about-points {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+  }
+
+  .about-point h4 {
+    font-size: 13px;
+    color: var(--accent-light);
+    margin-bottom: 10px;
+    font-weight: 500;
+    letter-spacing: 2px;
+  }
+
+  .about-point p {
+    font-size: 14px;
+    color: var(--text-dim);
+    line-height: 1.9;
+  }
+
+  /* ===== PROJECTS ===== */
+  .project {
+    margin-bottom: 140px;
+  }
+
+  .project:last-child { margin-bottom: 0; }
+
+  .project-header {
+    display: flex;
+    align-items: baseline;
+    gap: 28px;
+    margin-bottom: 16px;
+  }
+
+  .project-num {
+    font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Inter', sans-serif;
+    font-size: 64px;
+    font-weight: 700;
+    color: var(--accent);
+    opacity: 0.3;
+    line-height: 1;
+  }
+
+  .project-title {
+    font-family: 'PingFang SC', -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif;
+    font-size: clamp(26px, 3.5vw, 38px);
+    font-weight: 600;
+    line-height: 1.2;
+    letter-spacing: -0.5px;
+  }
+
+  .project-meta {
+    font-size: 13px;
+    color: var(--text-faint);
+    margin-bottom: 48px;
+    margin-left: 100px;
+    letter-spacing: 1.5px;
+  }
+
+  .project-body {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 48px;
+    margin-bottom: 48px;
+  }
+
+  @media (min-width: 768px) {
+    .project-body { grid-template-columns: 1fr 1fr; }
+  }
+
+  .project-section h4 {
+    font-size: 12px;
+    color: var(--accent);
+    margin-bottom: 18px;
+    font-weight: 600;
+    letter-spacing: 2.5px;
+  }
+
+  .project-section p {
+    font-size: 14.5px;
+    line-height: 2;
+    color: var(--text-dim);
+  }
+
+  .project-section ul {
+    list-style: none;
+    padding: 0;
+  }
+
+  .project-section ul li {
+    font-size: 14.5px;
+    line-height: 2;
+    color: var(--text-dim);
+    padding-left: 20px;
+    position: relative;
+  }
+
+  .project-section ul li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 16px;
+    width: 8px;
+    height: 1px;
+    background: var(--accent);
+  }
+
+  /* 数据展示 - editorial风格 */
+  .metrics {
+    display: flex;
+    gap: 0;
+    flex-wrap: wrap;
+    padding: 32px 0;
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    margin-bottom: 40px;
+  }
+
+  .metric {
+    flex: 1;
+    min-width: 120px;
+    padding-right: 32px;
+  }
+
+  .metric + .metric {
+    border-left: 1px solid var(--line);
+    padding-left: 32px;
+  }
+
+  .metric-value {
+    font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Inter', sans-serif;
+    font-size: 36px;
+    font-weight: 700;
+    color: var(--text);
+    line-height: 1;
+    margin-bottom: 10px;
+    letter-spacing: -1px;
+  }
+
+  .metric-label {
+    font-size: 12px;
+    color: var(--text-faint);
+    letter-spacing: 1.5px;
+  }
+
+  /* 视频占位 - 点击播放 */
+  .video-placeholder {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    background: linear-gradient(135deg, #1a2420 0%, #0f1512 100%);
+    border-radius: 4px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    transition: all 0.4s ease;
+    overflow: hidden;
+  }
+
+  .video-placeholder::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at center, rgba(193,154,74,0.06) 0%, transparent 70%);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+  }
+
+  .video-placeholder:hover::before { opacity: 1; }
+
+  .video-placeholder:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 40px rgba(0,0,0,0.3);
+  }
+
+  .video-placeholder .play-icon {
+    width: 68px;
+    height: 68px;
+    border-radius: 50%;
+    background: var(--accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s ease;
+    position: relative;
+  }
+
+  .video-placeholder:hover .play-icon {
+    transform: scale(1.15);
+  }
+
+  .video-placeholder .play-icon::after {
+    content: '';
+    border-left: 16px solid white;
+    border-top: 10px solid transparent;
+    border-bottom: 10px solid transparent;
+    margin-left: 4px;
+  }
+
+  .video-placeholder .video-label {
+    font-size: 13px;
+    color: var(--text-dim);
+    letter-spacing: 2px;
+  }
+
+  .video-container {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    border-radius: 4px;
+    overflow: hidden;
+    margin-top: 16px;
+    box-shadow: 0 12px 40px rgba(0,0,0,0.3);
+  }
+
+  .video-container iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+  }
+
+  /* ===== FOOTER ===== */
+  .footer {
+    padding: 140px 0;
+    text-align: center;
+    border-top: 1px solid var(--line);
+  }
+
+  .footer h2 {
+    font-family: 'PingFang SC', -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif;
+    font-size: clamp(44px, 7vw, 72px);
+    font-weight: 600;
+    margin-bottom: 24px;
+    color: #f0ede8;
+  }
+
+  .footer p {
+    color: var(--text-dim);
+    font-size: 16px;
+    font-weight: 300;
+  }
+
+  .footer-contact {
+    margin-top: 48px;
+    font-size: 20px;
+  }
+
+  .footer-contact a {
+    color: var(--accent-light);
+    text-decoration: none;
+    border-bottom: 1px solid var(--accent);
+    padding-bottom: 4px;
+    transition: color 0.3s ease;
+  }
+
+  .footer-contact a:hover {
+    color: var(--accent);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    * { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== 背景层 ===== -->
+<div class="bg-layer bg-sky"></div>
+<div class="bg-layer bg-mountain-photo"></div>
+<div class="bg-layer bg-fog"></div>
+<div class="bg-layer bg-grain"></div>
+<div class="cursor-glow" id="cursorGlow"></div>
+<div class="cursor-dot" id="cursorDot">
+  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+    <!-- 冰镐：参考真实冰镐造型 -->
+    <!-- 长杖身 -->
+    <line x1="12" y1="4" x2="12" y2="21"/>
+    <!-- 顶部镐头横梁 -->
+    <line x1="6" y1="4" x2="18" y2="4"/>
+    <!-- 左侧弯镐尖（带弧度） -->
+    <path d="M6 4 Q4 6 5 8"/>
+    <!-- 右侧扁铲 -->
+    <path d="M18 4 L19 7"/>
+    <!-- 底部尖刺 -->
+    <path d="M11 21 L12 23 L13 21"/>
+  </svg>
+</div>
+
+<!-- 右侧导航 -->
+<nav class="side-nav">
+  <a href="#about" data-target="about"><span class="dot"></span><span class="label">关于</span></a>
+  <a href="#p1" data-target="p1"><span class="dot"></span><span class="label">01 攀岩赛</span></a>
+  <a href="#p2" data-target="p2"><span class="dot"></span><span class="label">02 搬迁</span></a>
+  <a href="#p3" data-target="p3"><span class="dot"></span><span class="label">03 星球探索</span></a>
+  <a href="#p4" data-target="p4"><span class="dot"></span><span class="label">04 年会</span></a>
+  <a href="#p5" data-target="p5"><span class="dot"></span><span class="label">05 攀冰</span></a>
+  <a href="#p6" data-target="p6"><span class="dot"></span><span class="label">06 开年跑骑</span></a>
+  <a href="#contact" data-target="contact"><span class="dot"></span><span class="label">联系</span></a>
+</nav>
+
+<div class="progress-bar" id="progressBar"></div>
+
+<!-- ===== HERO ===== -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-label">PORTFOLIO · 2023.06—2025.04</div>
+    <h1>张泽禹</h1>
+    <p class="hero-sub">企业文化运营 / 活动策划 / 户外圈层。<br>从一场8000块的攀岩赛到一场590万的年会项目，我做的是把人和文化拧在一起的事。</p>
+    <div class="hero-meta">
+      <span>成都</span>
+      <span>19180831229</span>
+      <span>徒步 · 登山 · 越野跑</span>
+    </div>
+  </div>
+  <div class="scroll-hint">SCROLL</div>
+</section>
+
+<!-- ===== ABOUT ===== -->
+<section class="section about" id="about">
+  <div class="container">
+    <div class="section-label">关于我</div>
+    <div class="about-grid">
+      <div class="about-text">
+        <p>01年生，成都人。</p>
+        <p>2023.6—2025.4 任职于广州凯乐石运动科技有限公司，担任企业文化运营，任期1年10个月。</p>
+        <p>平时热爱徒步、登山、越野跑，自主攀登过技术型雪山——雅姆雪山(5330m)、巴郎山(5040m)、乌库楚(5526m)、那玛峰(5588m)；完赛深圳100越野赛50km、莫干山100越野赛35km、广州100越野赛35km。</p>
+      </div>
+      <div class="about-points">
+        <div class="about-point">
+          <h4>核心能力</h4>
+          <p>文化体系搭建与价值观落地 · 文化IP运营与员工故事 · 活动策划与全流程统筹 · 预算管理与供应商谈判 · 传播矩阵搭建与UGC运营</p>
+        </div>
+        <div class="about-point">
+          <h4>做事风格</h4>
+          <p>目标导向，结果说话。每一分预算都要看到回报——谈价省成本、数据看效果、复盘沉淀SOP。小活动能出彩，大项目能落地。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== PROJECTS ===== -->
+<section class="section">
+  <div class="container">
+    <div class="section-label">项目案例</div>
+
+    <!-- P1 -->
+    <div class="project" id="p1">
+      <div class="project-header">
+        <span class="project-num">01</span>
+        <h2 class="project-title">内部员工攀岩赛</h2>
+      </div>
+      <div class="project-meta">2024.08 · 品牌campaign联动 · UGC运营</div>
+      <div class="project-body">
+        <div class="project-section">
+          <h4>背景</h4>
+          <p>配合品牌侧"中国攀岩"campaign发起内部员工活动。员工发布小红书UGC视频及图文，完成指定线路后进入比赛环节。</p>
+        </div>
+        <div class="project-section">
+          <h4>我做了什么</h4>
+          <ul>
+            <li>策划完整活动内容及前期运营</li>
+            <li>内部社群引流 + 海报招募</li>
+            <li>现场执行统筹</li>
+            <li>活动视频拍摄、剪辑与制作</li>
+          </ul>
+        </div>
+      </div>
+      <div class="metrics">
+        <div class="metric"><div class="metric-value">8000</div><div class="metric-label">总成本（含奖品）</div></div>
+        <div class="metric"><div class="metric-value">300+</div><div class="metric-label">UGC转发与发布</div></div>
+        <div class="metric"><div class="metric-value">9.2</div><div class="metric-label">活动满意度</div></div>
+      </div>
+      <div class="video-placeholder" data-bv="BV1MAnw6rEt6">
+        <div class="play-icon"></div>
+        <div class="video-label">观看活动回顾</div>
+      </div>
+    </div>
+
+    <!-- P2 -->
+    <div class="project" id="p2">
+      <div class="project-header">
+        <span class="project-num">02</span>
+        <h2 class="project-title">"动物大迁徙"搬迁活动</h2>
+      </div>
+      <div class="project-meta">2024.10 · 企业搬迁 · 大型活动</div>
+      <div class="project-body">
+        <div class="project-section">
+          <h4>背景</h4>
+          <p>企业走向国际化战略，需要更换更大更好的办公空间。以"动物大迁徙"为创意主线，策划一场有仪式感的搬迁活动。</p>
+        </div>
+        <div class="project-section">
+          <h4>我做了什么</h4>
+          <ul>
+            <li>活动内容策划：参考动物大迁徙画面</li>
+            <li>执行：回忆影展 → 最后一夜放映 → 徒步迁徙</li>
+            <li>供应商对接与协商</li>
+            <li>现场分工组织与统筹</li>
+            <li>员工UGC传播策略定制</li>
+          </ul>
+        </div>
+      </div>
+      <div class="metrics">
+        <div class="metric"><div class="metric-value">6W</div><div class="metric-label">落地成本</div></div>
+        <div class="metric"><div class="metric-value">800+</div><div class="metric-label">参与人数</div></div>
+        <div class="metric"><div class="metric-value">100+</div><div class="metric-label">UGC发布</div></div>
+      </div>
+      <div class="video-placeholder" data-bv="BV1TMnw6METs">
+        <div class="play-icon"></div>
+        <div class="video-label">观看活动回顾</div>
+      </div>
+    </div>
+
+    <!-- P3 -->
+    <div class="project" id="p3">
+      <div class="project-header">
+        <span class="project-num">03</span>
+        <h2 class="project-title">星球探索计划</h2>
+      </div>
+      <div class="project-meta">长期项目 · 文化价值观落地 · 社群运营</div>
+      <div class="project-body">
+        <div class="project-section">
+          <h4>背景</h4>
+          <p>将企业文化价值观拆解后重新命名为"星球探索计划"——覆盖登山、徒步、攀岩、攀冰、跑山、滑雪、考证7类户外活动。通过探索理念走进户外，让员工在体验中认同价值观，将户外感受反哺到工作与生活中。</p>
+        </div>
+        <div class="project-section">
+          <h4>我做了什么</h4>
+          <ul>
+            <li>项目内容框架搭建</li>
+            <li>路线库建设与运营</li>
+            <li>内部探索官社群运营</li>
+            <li>活动内容、文案、素材制作与发布</li>
+            <li>主题活动策划、执行与传播</li>
+            <li>配合品牌部门文化IP联动</li>
+            <li>活动视频拍摄剪辑与制作</li>
+          </ul>
+        </div>
+      </div>
+      <div class="metrics">
+        <div class="metric"><div class="metric-value">1800+</div><div class="metric-label">总参与人次</div></div>
+        <div class="metric"><div class="metric-value">1500+</div><div class="metric-label">产出素材</div></div>
+        <div class="metric"><div class="metric-value">4.8</div><div class="metric-label">年度满意度（5分制）</div></div>
+      </div>
+      <div class="video-placeholder" data-bv="BV1N3nw6KEnT">
+        <div class="play-icon"></div>
+        <div class="video-label">观看24年全回顾（山民说）</div>
+      </div>
+    </div>
+
+    <!-- P4 -->
+    <div class="project" id="p4">
+      <div class="project-header">
+        <span class="project-num">04</span>
+        <h2 class="project-title">GO BIG PARTY · SEA TO SKI</h2>
+      </div>
+      <div class="project-meta">2025.01 · 品牌侧年会项目 · 大预算项目</div>
+      <div class="project-body">
+        <div class="project-section">
+          <h4>背景</h4>
+          <p>2024年底至2025年初的集团年会项目，深圳主会场+东北分会场双会场执行。联动品牌侧"硬壳滑大山"话题，将年会与户外品牌campaign深度结合，打造一场跨城市的大型户外体验式年会。</p>
+        </div>
+        <div class="project-section">
+          <h4>我做了什么</h4>
+          <ul>
+            <li>活动创意与内容策划</li>
+            <li>与当地政府协调活动场地</li>
+            <li>供应商谈判（二次谈价省180万）</li>
+            <li>双会场执行统筹</li>
+          </ul>
+        </div>
+      </div>
+      <div class="metrics">
+        <div class="metric"><div class="metric-value">590W</div><div class="metric-label">总成本（谈价后省180W）</div></div>
+        <div class="metric"><div class="metric-value">620W+</div><div class="metric-label">小红书话题浏览量</div></div>
+        <div class="metric"><div class="metric-value">1500W</div><div class="metric-label">助力BM45冲锋衣销售额</div></div>
+      </div>
+      <div class="video-placeholder" data-bv="BV1KMnw6MEpN">
+        <div class="play-icon"></div>
+        <div class="video-label">观看年会总回顾</div>
+      </div>
+    </div>
+
+    <!-- P5 -->
+    <div class="project" id="p5">
+      <div class="project-header">
+        <span class="project-num">05</span>
+        <h2 class="project-title">只为攀登 · 攀冰活动</h2>
+      </div>
+      <div class="project-meta">2025.01 · 户外体验 · 内容传播</div>
+      <div class="project-body">
+        <div class="project-section">
+          <h4>背景</h4>
+          <p>星球探索计划旗下的主题活动，配合品牌"只为攀登"推广，以攀冰体验+WORKSHOP形式开展。通过教练式引导和任务卡设计，让员工在户外挑战中理解热爱、勇敢、专注与探索的价值观。</p>
+        </div>
+        <div class="project-section">
+          <h4>我做了什么</h4>
+          <ul>
+            <li>项目活动主统筹及内容策划</li>
+            <li>活动整体运营工作</li>
+            <li>活动内容传播</li>
+            <li>活动SOP沉淀</li>
+            <li>视频制作</li>
+          </ul>
+        </div>
+      </div>
+      <div class="metrics">
+        <div class="metric"><div class="metric-value">9W+</div><div class="metric-label">活动总成本</div></div>
+        <div class="metric"><div class="metric-value">500W+</div><div class="metric-label">小红书话题浏览量</div></div>
+        <div class="metric"><div class="metric-value">98</div><div class="metric-label">员工满意度</div></div>
+      </div>
+      <div class="video-placeholder" data-bv="BV113nw6KEJq">
+        <div class="play-icon"></div>
+        <div class="video-label">观看活动回顾</div>
+      </div>
+    </div>
+
+    <!-- P6 -->
+    <div class="project" id="p6">
+      <div class="project-header">
+        <span class="project-num">06</span>
+        <h2 class="project-title">新春开年跑 &amp; 开年骑</h2>
+      </div>
+      <div class="project-meta">2025.02 · 双线活动 · 开工大吉</div>
+      <div class="project-body">
+        <div class="project-section">
+          <h4>背景</h4>
+          <p>为新一年开工增添"开工大吉"的寓意，举办双线粤式新春开工活动（KAILAS越野跑 + VAUDE骑行）。</p>
+        </div>
+        <div class="project-section">
+          <h4>我做了什么</h4>
+          <ul>
+            <li>双线项目主统筹及内容策划</li>
+            <li>活动整体运营</li>
+            <li>活动内容传播</li>
+            <li>活动SOP沉淀</li>
+          </ul>
+        </div>
+      </div>
+      <div class="metrics">
+        <div class="metric"><div class="metric-value">7W+</div><div class="metric-label">双活动总成本</div></div>
+        <div class="metric"><div class="metric-value">380</div><div class="metric-label">合计参与人数</div></div>
+        <div class="metric"><div class="metric-value">95</div><div class="metric-label">员工满意度</div></div>
+      </div>
+      <div class="video-placeholder" data-bv="BV1PGnw6vEVj">
+        <div class="play-icon"></div>
+        <div class="video-label">观看开年跑回顾</div>
+      </div>
+      <div class="video-placeholder" data-bv="BV1C3nw6PEfu" style="margin-top:16px">
+        <div class="play-icon"></div>
+        <div class="video-label">观看开年骑回顾</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<section class="footer" id="contact">
+  <div class="container">
+    <h2>Thanks</h2>
+    <p>做过的项目都在上面，欢迎聊聊</p>
+    <div class="footer-contact">
+      <a href="tel:19180831229">191-8083-1229</a>
+    </div>
+  </div>
+</section>
+
+<script>
+  // 滚动进度条
+  const progressBar = document.getElementById('progressBar');
+  window.addEventListener('scroll', () => {
+    const h = document.documentElement;
+    progressBar.style.width = (h.scrollTop / (h.scrollHeight - h.clientHeight) * 100) + '%';
+  });
+
+  // GSAP 滚动动画
+  gsap.registerPlugin(ScrollTrigger);
+
+  // Hero 入场
+  gsap.from('.hero-label', { opacity: 0, y: 20, duration: 1, ease: 'power2.out' });
+  gsap.from('.hero h1', { opacity: 0, y: 40, duration: 1.2, delay: 0.2, ease: 'power3.out' });
+  gsap.from('.hero-sub', { opacity: 0, y: 30, duration: 1, delay: 0.4, ease: 'power2.out' });
+  gsap.from('.hero-meta', { opacity: 0, y: 20, duration: 1, delay: 0.6, ease: 'power2.out' });
+
+  // 项目滚动淡入
+  gsap.utils.toArray('.project, .section-label, .about-grid, .about-points').forEach(el => {
+    gsap.from(el, {
+      opacity: 0,
+      y: 60,
+      duration: 1,
+      ease: 'power2.out',
+      scrollTrigger: {
+        trigger: el,
+        start: 'top 85%',
+        toggleActions: 'play none none reverse'
+      }
+    });
+  });
+
+  // 视频点击加载
+  document.querySelectorAll('.video-placeholder').forEach(placeholder => {
+    placeholder.addEventListener('click', () => {
+      const bv = placeholder.dataset.bv;
+      const container = document.createElement('div');
+      container.className = 'video-container';
+      container.innerHTML = `<iframe src="//player.bilibili.com/player.html?bvid=${bv}&page=1&high_quality=1&autoplay=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe>`;
+      placeholder.replaceWith(container);
+    });
+  });
+
+  // 鼠标跟随光晕 + 冰镐
+  const glow = document.getElementById('cursorGlow');
+  const dot = document.getElementById('cursorDot');
+
+  let mouseX = 0, mouseY = 0;
+
+  document.addEventListener('mousemove', (e) => {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+    dot.style.left = mouseX + 'px';
+    dot.style.top = mouseY + 'px';
+    glow.style.left = mouseX + 'px';
+    glow.style.top = mouseY + 'px';
+  });
+
+  // hover到可点击元素时冰镐隐藏
+  document.querySelectorAll('a, .video-placeholder, button').forEach(el => {
+    el.addEventListener('mouseenter', () => {
+      dot.classList.add('hover');
+    });
+    el.addEventListener('mouseleave', () => {
+      dot.classList.remove('hover');
+    });
+  });
+
+  // 点击涟漪效果
+  document.addEventListener('click', (e) => {
+    const ripple = document.createElement('div');
+    ripple.className = 'ripple';
+    ripple.style.left = e.clientX + 'px';
+    ripple.style.top = e.clientY + 'px';
+    ripple.style.width = '0px';
+    ripple.style.height = '0px';
+    document.body.appendChild(ripple);
+
+    gsap.to(ripple, {
+      width: 120,
+      height: 120,
+      opacity: 0,
+      duration: 0.8,
+      ease: 'power2.out',
+      onComplete: () => ripple.remove()
+    });
+  });
+
+  // 右侧导航高亮
+  const navLinks = document.querySelectorAll('.side-nav a');
+  navLinks.forEach(link => {
+    const targetId = link.dataset.target;
+    const target = document.getElementById(targetId);
+    if (!target) return;
+
+    gsap.to(link, {
+      scrollTrigger: {
+        trigger: target,
+        start: 'top center',
+        end: 'bottom center',
+        onEnter: () => setActive(link),
+        onEnterBack: () => setActive(link)
+      }
+    });
+  });
+
+  function setActive(activeLink) {
+    navLinks.forEach(l => l.classList.remove('active'));
+    activeLink.classList.add('active');
+  }
+</script>
+
+</body>
+</html>
